@@ -1,0 +1,322 @@
+  [1m[36m (141.1ms)[0m  [1mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (91.1ms)[0m  CREATE UNIQUE INDEX `unique_schema_migrations`  ON `schema_migrations` (`version`) 
+  [1m[36mActiveRecord::SchemaMigration Load (33.0ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+
+
+Started GET "/" for 127.0.0.1 at 2015-06-24 15:07:54 +0700
+Processing by Rails::WelcomeController#index as HTML
+  Rendered /home/tamnguyen/.rvm/gems/ruby-2.2.2/gems/railties-4.2.1/lib/rails/templates/rails/welcome/index.html.erb (10.8ms)
+Completed 200 OK in 210ms (Views: 168.8ms | ActiveRecord: 0.0ms)
+  [1m[36mActiveRecord::SchemaMigration Load (36.8ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+Migrating to CreatePosts (20150624081412)
+  [1m[35m (194.2ms)[0m  CREATE TABLE `posts` (`id` int(11) auto_increment PRIMARY KEY, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (16.0ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20150624081412')
+  [1m[36m (3.1ms)[0m  [1mCOMMIT[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.4ms)[0m  SELECT `schema_migrations`.* FROM `schema_migrations`
+  [1m[36m (46.6ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'rails_wp_api_development'
+  AND fk.table_name = 'posts'
+[0m
+  [1m[35m (0.3ms)[0m  SHOW CREATE TABLE `posts`
+  [1m[36mWp_Post Load (3.3ms)[0m  [1mSELECT `wp_posts`.* FROM `wp_posts`[0m
+  [1m[35m (0.5ms)[0m  SELECT COUNT(*) FROM `wp_posts`
+  [1m[36mMovie Load (31.2ms)[0m  [1mSELECT `mnc_movie`.* FROM `mnc_movie`[0m
+  [1m[35m (1.5ms)[0m  SELECT COUNT(*) FROM `mnc_movie`
+  [1m[36m (25.1ms)[0m  [1mSELECT COUNT(*) FROM `mnc_video`[0m
+  [1m[36mPost Load (4.3ms)[0m  [1mSELECT `posts`.* FROM `posts`[0m
+  [1m[35mMovie Load (2.4ms)[0m  SELECT  `mnc_movie`.* FROM `mnc_movie`  ORDER BY `mnc_movie`.`code` ASC LIMIT 1
+  [1m[36mMovie Load (0.6ms)[0m  [1mSELECT  `mnc_movie`.* FROM `mnc_movie`  ORDER BY `mnc_movie`.`code` ASC LIMIT 1[0m
+  [1m[36mMovie Load (1.3ms)[0m  [1mSELECT  `mnc_movie`.* FROM `mnc_movie`  ORDER BY `mnc_movie`.`code` ASC LIMIT 1[0m
+  [1m[36mMovie Load (0.9ms)[0m  [1mSELECT  `mnc_movie`.* FROM `mnc_movie`  ORDER BY `mnc_movie`.`code` ASC LIMIT 1[0m
+  [1m[35mVideo Load (32.6ms)[0m  SELECT `mnc_video`.* FROM `mnc_video` WHERE `mnc_video`.`movie_id` = '543a1a08264f2'
+Mysql2::Error: Unknown column 'mnc_video.movie_id' in 'where clause': SELECT `mnc_video`.* FROM `mnc_video` WHERE `mnc_video`.`movie_id` = '543a1a08264f2'
+  [1m[36mMovie Load (1.9ms)[0m  [1mSELECT  `mnc_movie`.* FROM `mnc_movie`  ORDER BY `mnc_movie`.`code` ASC LIMIT 1[0m
+  [1m[35mVideo Load (4.6ms)[0m  SELECT `mnc_video`.* FROM `mnc_video` WHERE `mnc_video`.`movie_id` = '543a1a08264f2'
+Mysql2::Error: Unknown column 'mnc_video.movie_id' in 'where clause': SELECT `mnc_video`.* FROM `mnc_video` WHERE `mnc_video`.`movie_id` = '543a1a08264f2'
+  [1m[36mActiveRecord::SchemaMigration Load (1.8ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+Migrating to AddForeignKeyToMovies (20150626031724)
+  [1m[35m (16.6ms)[0m  BEGIN
+  [1m[36mSQL (23.3ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20150626031724')[0m
+  [1m[35m (47.6ms)[0m  COMMIT
+Migrating to AddForeignKeyToVideos (20150626031816)
+  [1m[36m (8.1ms)[0m  [1mALTER TABLE `videos` ADD CONSTRAINT `fk_rails_c41c1d872a`
+FOREIGN KEY (`movie`)
+  REFERENCES `movies` (`code`)
+[0m
+Mysql2::Error: Table 'rails_wp_api_development.videos' doesn't exist: ALTER TABLE `videos` ADD CONSTRAINT `fk_rails_c41c1d872a`
+FOREIGN KEY (`movie`)
+  REFERENCES `movies` (`code`)
+
+  [1m[36mActiveRecord::SchemaMigration Load (2.5ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+Migrating to AddForeignKeyToVideos (20150626031816)
+  [1m[35m (16099.3ms)[0m  ALTER TABLE `mnc_video` ADD CONSTRAINT `fk_rails_0f3632d670`
+FOREIGN KEY (`movie`)
+  REFERENCES `mnc_movie` (`code`)
+
+  [1m[36m (1.0ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (11.7ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20150626031816')
+  [1m[36m (17.5ms)[0m  [1mCOMMIT[0m
+  [1m[35mActiveRecord::SchemaMigration Load (2.9ms)[0m  SELECT `schema_migrations`.* FROM `schema_migrations`
+  [1m[36m (30.4ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'rails_wp_api_development'
+  AND fk.table_name = 'mnc_category'
+[0m
+  [1m[35m (5.5ms)[0m  SHOW CREATE TABLE `mnc_category`
+  [1m[36m (4.9ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'rails_wp_api_development'
+  AND fk.table_name = 'mnc_movie'
+[0m
+  [1m[35m (2.3ms)[0m  SHOW CREATE TABLE `mnc_movie`
+  [1m[36m (3.8ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'rails_wp_api_development'
+  AND fk.table_name = 'mnc_page'
+[0m
+  [1m[35m (1.1ms)[0m  SHOW CREATE TABLE `mnc_page`
+  [1m[36m (25.6ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'rails_wp_api_development'
+  AND fk.table_name = 'mnc_search_keyword'
+[0m
+  [1m[35m (0.9ms)[0m  SHOW CREATE TABLE `mnc_search_keyword`
+  [1m[36m (119.9ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'rails_wp_api_development'
+  AND fk.table_name = 'mnc_search_link'
+[0m
+  [1m[35m (10.6ms)[0m  SHOW CREATE TABLE `mnc_search_link`
+  [1m[36m (144.9ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'rails_wp_api_development'
+  AND fk.table_name = 'mnc_seo'
+[0m
+  [1m[35m (1.5ms)[0m  SHOW CREATE TABLE `mnc_seo`
+  [1m[36m (1.9ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'rails_wp_api_development'
+  AND fk.table_name = 'mnc_topmenu'
+[0m
+  [1m[35m (1.1ms)[0m  SHOW CREATE TABLE `mnc_topmenu`
+  [1m[36m (2.1ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'rails_wp_api_development'
+  AND fk.table_name = 'mnc_user'
+[0m
+  [1m[35m (0.9ms)[0m  SHOW CREATE TABLE `mnc_user`
+  [1m[36m (4.8ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'rails_wp_api_development'
+  AND fk.table_name = 'mnc_video'
+[0m
+  [1m[35m (2.3ms)[0m  SHOW CREATE TABLE `mnc_video`
+  [1m[36m (1.6ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'rails_wp_api_development'
+  AND fk.table_name = 'mnc_widget'
+[0m
+  [1m[35m (1.0ms)[0m  SHOW CREATE TABLE `mnc_widget`
+  [1m[36m (1.4ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'rails_wp_api_development'
+  AND fk.table_name = 'posts'
+[0m
+  [1m[35m (1.2ms)[0m  SHOW CREATE TABLE `posts`
+  [1m[36m (2.1ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'rails_wp_api_development'
+  AND fk.table_name = 'wp_commentmeta'
+[0m
+  [1m[35m (1.2ms)[0m  SHOW CREATE TABLE `wp_commentmeta`
+  [1m[36m (1.9ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'rails_wp_api_development'
+  AND fk.table_name = 'wp_comments'
+[0m
+  [1m[35m (1.6ms)[0m  SHOW CREATE TABLE `wp_comments`
+  [1m[36m (2.5ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'rails_wp_api_development'
+  AND fk.table_name = 'wp_links'
+[0m
+  [1m[35m (1.2ms)[0m  SHOW CREATE TABLE `wp_links`
+  [1m[36m (2.5ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'rails_wp_api_development'
+  AND fk.table_name = 'wp_options'
+[0m
+  [1m[35m (1.0ms)[0m  SHOW CREATE TABLE `wp_options`
+  [1m[36m (30.3ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'rails_wp_api_development'
+  AND fk.table_name = 'wp_postmeta'
+[0m
+  [1m[35m (0.6ms)[0m  SHOW CREATE TABLE `wp_postmeta`
+  [1m[36m (6.2ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'rails_wp_api_development'
+  AND fk.table_name = 'wp_posts'
+[0m
+  [1m[35m (1.8ms)[0m  SHOW CREATE TABLE `wp_posts`
+  [1m[36m (1.8ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'rails_wp_api_development'
+  AND fk.table_name = 'wp_term_relationships'
+[0m
+  [1m[35m (1.0ms)[0m  SHOW CREATE TABLE `wp_term_relationships`
+  [1m[36m (1.5ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'rails_wp_api_development'
+  AND fk.table_name = 'wp_term_taxonomy'
+[0m
+  [1m[35m (0.9ms)[0m  SHOW CREATE TABLE `wp_term_taxonomy`
+  [1m[36m (2.6ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'rails_wp_api_development'
+  AND fk.table_name = 'wp_terms'
+[0m
+  [1m[35m (1.2ms)[0m  SHOW CREATE TABLE `wp_terms`
+  [1m[36m (1.5ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'rails_wp_api_development'
+  AND fk.table_name = 'wp_usermeta'
+[0m
+  [1m[35m (1.5ms)[0m  SHOW CREATE TABLE `wp_usermeta`
+  [1m[36m (1.3ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'rails_wp_api_development'
+  AND fk.table_name = 'wp_users'
+[0m
+  [1m[35m (1.0ms)[0m  SHOW CREATE TABLE `wp_users`
+  [1m[36mMovie Load (0.9ms)[0m  [1mSELECT  `mnc_movie`.* FROM `mnc_movie`  ORDER BY `mnc_movie`.`code` ASC LIMIT 1[0m
+  [1m[35mVideo Load (3.8ms)[0m  SELECT `mnc_video`.* FROM `mnc_video` WHERE `mnc_video`.`movie_id` = '543a1a08264f2'
+Mysql2::Error: Unknown column 'mnc_video.movie_id' in 'where clause': SELECT `mnc_video`.* FROM `mnc_video` WHERE `mnc_video`.`movie_id` = '543a1a08264f2'
+  [1m[36mMovie Load (0.6ms)[0m  [1mSELECT  `mnc_movie`.* FROM `mnc_movie`  ORDER BY `mnc_movie`.`code` ASC LIMIT 1[0m
+  [1m[35mVideo Load (20.4ms)[0m  SELECT `mnc_video`.* FROM `mnc_video` WHERE `mnc_video`.`movie` = '543a1a08264f2'
+  [1m[36mMovie Load (1.3ms)[0m  [1mSELECT  `mnc_movie`.* FROM `mnc_movie` WHERE `mnc_movie`.`code` = '543a1a08264f2' LIMIT 1[0m
+  [1m[35mMovie Load (1.3ms)[0m  SELECT  `mnc_movie`.* FROM `mnc_movie` WHERE `mnc_movie`.`code` = '543a1a08264f2' LIMIT 1
+  [1m[36mMovie Load (0.9ms)[0m  [1mSELECT  `mnc_movie`.* FROM `mnc_movie` WHERE `mnc_movie`.`code` = '543a1a08264f2' LIMIT 1[0m
+  [1m[35mMovie Load (0.9ms)[0m  SELECT  `mnc_movie`.* FROM `mnc_movie` WHERE `mnc_movie`.`code` = '543a1a08264f2' LIMIT 1
+  [1m[36mMovie Load (1.1ms)[0m  [1mSELECT  `mnc_movie`.* FROM `mnc_movie` WHERE `mnc_movie`.`code` = '543a1a08264f2' LIMIT 1[0m
+  [1m[35mVideo Load (2.5ms)[0m  SELECT  `mnc_video`.* FROM `mnc_video`  ORDER BY `mnc_video`.`code` ASC LIMIT 1
+  [1m[36mMovie Load (2.2ms)[0m  [1mSELECT  `mnc_movie`.* FROM `mnc_movie` WHERE `mnc_movie`.`code` = '543a1a85e5994' LIMIT 1[0m
+  [1m[35mVideo Load (1.1ms)[0m  SELECT  `mnc_video`.* FROM `mnc_video`  ORDER BY `mnc_video`.`code` ASC LIMIT 1
+  [1m[36mMovie Load (0.9ms)[0m  [1mSELECT  `mnc_movie`.* FROM `mnc_movie` WHERE `mnc_movie`.`code` = '543a1a85e5994' LIMIT 1[0m
+  [1m[35mMovie Load (0.8ms)[0m  SELECT  `mnc_movie`.* FROM `mnc_movie`  ORDER BY `mnc_movie`.`code` ASC LIMIT 1
+  [1m[36mVideo Load (1.5ms)[0m  [1mSELECT `mnc_video`.* FROM `mnc_video` WHERE `mnc_video`.`movie` = '543a1a08264f2'[0m
+  [1m[35mMovie Load (0.7ms)[0m  SELECT  `mnc_movie`.* FROM `mnc_movie` WHERE `mnc_movie`.`code` = '543a1a08264f2' LIMIT 1
+  [1m[36mMovie Load (1.8ms)[0m  [1mSELECT  `mnc_movie`.* FROM `mnc_movie` WHERE `mnc_movie`.`code` = '543a1a08264f2' LIMIT 1[0m
+  [1m[35mMovie Load (0.7ms)[0m  SELECT  `mnc_movie`.* FROM `mnc_movie` WHERE `mnc_movie`.`code` = '543a1a08264f2' LIMIT 1
+  [1m[36mMovie Load (0.9ms)[0m  [1mSELECT  `mnc_movie`.* FROM `mnc_movie` WHERE `mnc_movie`.`code` = '543a1a08264f2' LIMIT 1[0m
+  [1m[35mMovie Load (0.9ms)[0m  SELECT  `mnc_movie`.* FROM `mnc_movie` WHERE `mnc_movie`.`code` = '543a1a08264f2' LIMIT 1
+  [1m[36mMovie Load (1.0ms)[0m  [1mSELECT  `mnc_movie`.* FROM `mnc_movie`  ORDER BY `mnc_movie`.`code` ASC LIMIT 1[0m
+  [1m[36mMovieCategory Load (3.5ms)[0m  [1mSELECT `mnc_category`.* FROM `mnc_category`[0m
+  [1m[35mMovieCategory Load (0.7ms)[0m  SELECT `mnc_category`.* FROM `mnc_category`
+  [1m[36mMovieCategory Load (1.7ms)[0m  [1mSELECT `mnc_category`.* FROM `mnc_category`[0m
+  [1m[36mMovie Load (76.5ms)[0m  [1mSELECT `mnc_movie`.* FROM `mnc_movie`[0m
+  [1m[35mMovie Load (45.8ms)[0m  SELECT `mnc_movie`.* FROM `mnc_movie`
+  [1m[36mMovie Load (1.9ms)[0m  [1mSELECT  `mnc_movie`.* FROM `mnc_movie` LIMIT 10[0m
+  [1m[35mMovieCategory Load (2.1ms)[0m  SELECT `mnc_category`.* FROM `mnc_category`
+  [1m[36mMovie Load (2.1ms)[0m  [1mSELECT  `mnc_movie`.* FROM `mnc_movie`  ORDER BY `mnc_movie`.`code` ASC LIMIT 1[0m
+  [1m[35mMovie Load (1.0ms)[0m  SELECT  `mnc_movie`.* FROM `mnc_movie`  ORDER BY `mnc_movie`.`code` ASC LIMIT 1
+  [1m[36mVideo Load (25.3ms)[0m  [1mSELECT `mnc_video`.* FROM `mnc_video` WHERE `mnc_video`.`movie` = '543a1a08264f2'[0m
+  [1m[35mMovie Load (1.4ms)[0m  SELECT  `mnc_movie`.* FROM `mnc_movie` WHERE `mnc_movie`.`code` = '543a1a08264f2' LIMIT 1
+  [1m[36mMovie Load (0.5ms)[0m  [1mSELECT  `mnc_movie`.* FROM `mnc_movie` WHERE `mnc_movie`.`code` = '543a1a08264f2' LIMIT 1[0m
+  [1m[35mMovie Load (1.0ms)[0m  SELECT  `mnc_movie`.* FROM `mnc_movie` WHERE `mnc_movie`.`code` = '543a1a08264f2' LIMIT 1
+  [1m[36mMovie Load (0.5ms)[0m  [1mSELECT  `mnc_movie`.* FROM `mnc_movie` WHERE `mnc_movie`.`code` = '543a1a08264f2' LIMIT 1[0m
+  [1m[35mMovie Load (0.6ms)[0m  SELECT  `mnc_movie`.* FROM `mnc_movie` WHERE `mnc_movie`.`code` = '543a1a08264f2' LIMIT 1
