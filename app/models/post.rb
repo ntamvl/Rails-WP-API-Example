@@ -8,21 +8,59 @@ class Post < ActiveRecord::Base
   POST_TYPE = {tvshows: "tvshows", episode: "episodios"}
 
   def self.create_multi_posts
-  	list_movie = Movie.all
-  	list_movie.each do |movie|
-  		# str.strip.downcase.gsub(/\s+/," ").gsub(" ","-")
-  		returned_movie = Post.create_post_tvshow(movie)
-  	end
+    list_movie = Movie.take(5)
+    list_movie.each do |movie|
+      # str.strip.downcase.gsub(/\s+/," ").gsub(" ","-")
+      returned_movie = Post.create_post_tvshow(movie, "post")
+
+      meta_poster_url = Post.create_post_tvshow_meta(returned_movie["ID"], "poster_url", movie["cover"])
+      meta_cover_url = Post.create_post_tvshow_meta(returned_movie["ID"], "cover_url", movie["cover"])
+
+      Post.create_post_tvshow_meta(returned_movie["ID"], "seasons", "1")
+      Post.create_post_tvshow_meta(returned_movie["ID"], "_seasons", "field_551980b8a65b5")
+      Post.create_post_tvshow_meta(returned_movie["ID"], "seasons_0_episode", "#{movie.videos.count}")
+      Post.create_post_tvshow_meta(returned_movie["ID"], "_seasons_0_episode", "field_551980eaa65b6")
+
+
+      movie.videos.each_with_index do |video, index|
+        returned_video = Post.create_video_tvshow(video)
+        Post.create_post_tvshow_meta(returned_video["ID"], "ddw", "0")
+        Post.create_post_tvshow_meta(returned_video["ID"], "_ddw", "field_54fa4e8cbca22")
+        Post.create_post_tvshow_meta(returned_video["ID"], "voo", "0")
+        Post.create_post_tvshow_meta(returned_video["ID"], "_voo", "field_54fa4f41bca28")
+        Post.create_post_tvshow_meta(returned_video["ID"], "titulo_serie", "")
+    	Post.create_post_tvshow_meta(returned_video["ID"], "url_serie", "")
+        Post.create_post_tvshow_meta(returned_video["ID"], "fecha_serie", "")
+        Post.create_post_tvshow_meta(returned_video["ID"], "temporada_serie", "0")
+        Post.create_post_tvshow_meta(returned_video["ID"], "episodio_serie", "#{index + 1}")
+
+        # meta_video_poster_url = Post.create_post_tvshow_meta(returned_video["ID"], "poster_url", movie["cover"])
+        # meta_video_cover_url = Post.create_post_tvshow_meta(returned_video["ID"], "cover_url", movie["cover"])
+
+        Post.create_post_tvshow_meta(returned_video["ID"], "tvplayer", "1")
+        Post.create_post_tvshow_meta(returned_video["ID"], "_tvplayer", "field_551ae27f3a233")
+        Post.create_post_tvshow_meta(returned_video["ID"], "tvplayer_0_title_tvplayer", "Server 1")
+        Post.create_post_tvshow_meta(returned_video["ID"], "_tvplayer_0_title_tvplayer", "field_551ae2a03a234")
+        Post.create_post_tvshow_meta(returned_video["ID"], "tvplayer_0_embed_tvplayer", "#{video[:data]}")
+        Post.create_post_tvshow_meta(returned_video["ID"], "_tvplayer_0_embed_tvplayer", "field_551ae2af3a235")
+
+        Post.create_post_tvshow_meta(returned_movie["ID"], "seasons_0_episode_#{index}_url_tvshows", video[:slug].gsub("/",""))
+        Post.create_post_tvshow_meta(returned_movie["ID"], "_seasons_0_episode_#{index}_url_tvshows", "field_55198102a65b7")
+        Post.create_post_tvshow_meta(returned_movie["ID"], "seasons_0_episode_#{index}_runtime_tvshows", "")
+        Post.create_post_tvshow_meta(returned_movie["ID"], "_seasons_0_episode_#{index}_runtime_tvshows", "")
+
+      end
+    end
   end
 
-  def self.create_post_tvshow(m_movie)
-    puts "Creating a post..."
+  def self.create_post_tvshow(m_movie, m_type = "tvshows")
+    puts "Creating a post, type is #{m_type}..."
     post_body = {
       :title => m_movie[:title],
       :content_raw => m_movie[:summary],
       :excerpt_raw => m_movie[:other_title],
       :name => m_movie[:title],
-      :type => 'tvshows',
+      :type => m_type,
       :status => 'publish'
     }
     post_return = HTTParty.post(
@@ -35,10 +73,45 @@ class Post < ActiveRecord::Base
     return post_return
   end
 
+  def self.create_video_tvshow(m_video, m_type = "episodios")
+    puts "Creating a episodios..."
+    post_body = {
+      :title => m_video[:title],
+      :content_raw => m_video[:title],
+      :excerpt_raw => m_video[:title],
+      :name => m_video[:slug].gsub("/", ""),
+      :type => m_type,
+      :status => 'publish'
+    }
+    post_return = HTTParty.post(
+      "#{API_POST_URL}",
+      :body => post_body.to_json,
+      :headers => { 'Content-Type' => 'application/json' },
+      :basic_auth => BASIC_AUTH
+    )
+
+    puts "post_return is #{post_return}"
+    return post_return
+  end
+
   def self.create_post_tvshow_meta(post_id, meta_key, meta_value)
     puts "Creating a meta for post #{post_id}..."
     result_meta = HTTParty.post(
       "#{API_POST_URL}/#{post_id}/meta",
+      :body => {
+        :key => "#{meta_key}",
+        :value => meta_value.present? ? meta_value.gsub("\"","") : meta_value
+      }.to_json,
+      :headers => { 'Content-Type' => 'application/json' },
+      :basic_auth => BASIC_AUTH
+    )
+    puts "result for post #{post_id} is #{result_meta}"
+  end
+
+  def self.update_post_tvshow_meta(post_id, meta_id,  meta_key, meta_value)
+    puts "Updating a meta for post #{post_id}..."
+    result_meta = HTTParty.post(
+      "#{API_POST_URL}/#{post_id}/meta/#{meta_id}",
       :body => {:key => "#{meta_key}",:value => meta_value.gsub("\"","")}.to_json,
       :headers => { 'Content-Type' => 'application/json' },
       :basic_auth => BASIC_AUTH
@@ -46,7 +119,7 @@ class Post < ActiveRecord::Base
     puts "result for post #{post_id} is #{result_meta}"
   end
 
-  def self.get_post_demo
+  def self.create_post_meta_demo
     # wp_json_body = HTTParty.get("#{API_POST_URL}/621/meta", basic_auth: BASIC_AUTH)
     # puts "api_url = #{API_POST_URL}"
     # puts "-----------------"
@@ -96,15 +169,28 @@ class Post < ActiveRecord::Base
 
     youtube_url = "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/z4JxCx84QIM\" frameborder=\"0\" allowfullscreen></iframe>"
     youtube_url_escape = CGI::escapeHTML(youtube_url)
-    result_meta = HTTParty.post(
-      "#{API_POST_URL}/631/meta",
-      :body => {:key => "embed_pelicula3",:value => youtube_url.gsub("\"","")}.to_json,
-      :headers => { 'Content-Type' => 'application/json' },
-      :basic_auth => BASIC_AUTH
-    )
-    puts "result is #{result_meta}"
+    meta_body_1_1 = {key: "seasons_0_episode_5_url_tvshows", value: "doraemon-ep-336-doraemon-tv-series-2015"}
+    meta_body_1_2 = {key: "seasons_0_episode_5_runtime_tvshows", value: "35 min"}
+    meta_body_2 = {:key => "embed_pelicula3",:value => youtube_url.gsub("\"","")}
+    # result_meta = HTTParty.post(
+    #   "#{API_POST_URL}/645/meta",
+    #   :body => meta_body_1_1.to_json,
+    #   :headers => { 'Content-Type' => 'application/json' },
+    #   :basic_auth => BASIC_AUTH
+    # )
+    # puts "result is #{result_meta}"
 
-    puts "youtube_url_escape is #{youtube_url_escape}"
+    # result_meta_2 = HTTParty.post(
+    #   "#{API_POST_URL}/645/meta",
+    #   :body => meta_body_1_2.to_json,
+    #   :headers => { 'Content-Type' => 'application/json' },
+    #   :basic_auth => BASIC_AUTH
+    # )
+    # puts "result is #{result_meta_2}"
+
+    Post.update_post_tvshow_meta(645, 6594, "seasons_0_episode", "6")
+
+    # puts "youtube_url_escape is #{youtube_url_escape}"
   end
 
   def self.create_post_demo

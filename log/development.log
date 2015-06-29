@@ -320,3 +320,86 @@ Mysql2::Error: Unknown column 'mnc_video.movie_id' in 'where clause': SELECT `mn
   [1m[35mMovie Load (1.0ms)[0m  SELECT  `mnc_movie`.* FROM `mnc_movie` WHERE `mnc_movie`.`code` = '543a1a08264f2' LIMIT 1
   [1m[36mMovie Load (0.5ms)[0m  [1mSELECT  `mnc_movie`.* FROM `mnc_movie` WHERE `mnc_movie`.`code` = '543a1a08264f2' LIMIT 1[0m
   [1m[35mMovie Load (0.6ms)[0m  SELECT  `mnc_movie`.* FROM `mnc_movie` WHERE `mnc_movie`.`code` = '543a1a08264f2' LIMIT 1
+  [1m[36mMovieCategory Load (2.3ms)[0m  [1mSELECT  `mnc_category`.* FROM `mnc_category`  ORDER BY `mnc_category`.`code` ASC LIMIT 1[0m
+  [1m[35mMovieCategory Load (1.6ms)[0m  SELECT `mnc_category`.* FROM `mnc_category`
+  [1m[36mMovie Load (0.7ms)[0m  [1mSELECT  `mnc_movie`.* FROM `mnc_movie`  ORDER BY `mnc_movie`.`code` ASC LIMIT 1[0m
+  [1m[36mMovie Load (3.9ms)[0m  [1mSELECT  `mnc_movie`.* FROM `mnc_movie`  ORDER BY `mnc_movie`.`code` ASC LIMIT 1[0m
+  [1m[35mVideo Load (48.6ms)[0m  SELECT `mnc_video`.* FROM `mnc_video` WHERE `mnc_video`.`movie` = '543a1a08264f2'
+  [1m[36mMovie Load (2.1ms)[0m  [1mSELECT  `mnc_movie`.* FROM `mnc_movie` WHERE `mnc_movie`.`code` = '543a1a08264f2' LIMIT 1[0m
+  [1m[35mMovie Load (1.3ms)[0m  SELECT  `mnc_movie`.* FROM `mnc_movie` WHERE `mnc_movie`.`code` = '543a1a08264f2' LIMIT 1
+  [1m[36mMovie Load (1.1ms)[0m  [1mSELECT  `mnc_movie`.* FROM `mnc_movie` WHERE `mnc_movie`.`code` = '543a1a08264f2' LIMIT 1[0m
+  [1m[35mMovie Load (2.2ms)[0m  SELECT  `mnc_movie`.* FROM `mnc_movie` WHERE `mnc_movie`.`code` = '543a1a08264f2' LIMIT 1
+  [1m[36mMovie Load (1.3ms)[0m  [1mSELECT  `mnc_movie`.* FROM `mnc_movie` WHERE `mnc_movie`.`code` = '543a1a08264f2' LIMIT 1[0m
+  [1m[35mMovie Load (0.8ms)[0m  SELECT  `mnc_movie`.* FROM `mnc_movie`  ORDER BY `mnc_movie`.`code` ASC LIMIT 1
+  [1m[36mVideo Load (3.2ms)[0m  [1mSELECT  `mnc_video`.* FROM `mnc_video` WHERE `mnc_video`.`movie` = '543a1a08264f2'  ORDER BY `mnc_video`.`code` ASC LIMIT 1[0m
+  [1m[35mMovie Load (0.4ms)[0m  SELECT  `mnc_movie`.* FROM `mnc_movie` WHERE `mnc_movie`.`code` = '543a1a08264f2' LIMIT 1
+  [1m[36mMovie Load (7.0ms)[0m  [1mSELECT  `mnc_movie`.* FROM `mnc_movie` LIMIT 100[0m
+  [1m[36mVideo Load (12.2ms)[0m  [1mSELECT  `mnc_video`.* FROM `mnc_video`  ORDER BY `mnc_video`.`code` ASC LIMIT 1[0m
+  [1m[35mMovie Load (1.9ms)[0m  SELECT  `mnc_movie`.* FROM `mnc_movie` WHERE `mnc_movie`.`code` = '543a1a85e5994' LIMIT 1
+  [1m[36mVideo Load (0.8ms)[0m  [1mSELECT  `mnc_video`.* FROM `mnc_video`  ORDER BY `mnc_video`.`code` ASC LIMIT 1[0m
+  [1m[35mVideo Load (1.1ms)[0m  SELECT  `mnc_video`.* FROM `mnc_video`  ORDER BY `mnc_video`.`code` ASC LIMIT 1
+  [1m[36m (120.4ms)[0m  [1mSELECT COUNT(*) FROM `mnc_movie`[0m
+  [1m[35m (315.5ms)[0m  SELECT COUNT(*) FROM `mnc_video`
+  [1m[36mMovie Load (2.4ms)[0m  [1mSELECT  `mnc_movie`.* FROM `mnc_movie` LIMIT 4[0m
+  [1m[35mMovie Load (0.8ms)[0m  SELECT  `mnc_movie`.* FROM `mnc_movie` LIMIT 4
+  [1m[36mMovie Load (0.8ms)[0m  [1mSELECT  `mnc_movie`.* FROM `mnc_movie` LIMIT 4[0m
+  [1m[35mMovie Load (0.7ms)[0m  SELECT  `mnc_movie`.* FROM `mnc_movie` LIMIT 4
+  [1m[36mVideo Load (15.6ms)[0m  [1mSELECT  `mnc_video`.* FROM `mnc_video`  ORDER BY `mnc_video`.`code` ASC LIMIT 1[0m
+  [1m[35mMovie Load (2.0ms)[0m  SELECT  `mnc_movie`.* FROM `mnc_movie` WHERE `mnc_movie`.`code` = '543a1a85e5994' LIMIT 1
+  [1m[36mMovie Load (1.7ms)[0m  [1mSELECT  `mnc_movie`.* FROM `mnc_movie` LIMIT 2[0m
+  [1m[35mMovie Load (2.0ms)[0m  SELECT  `mnc_movie`.* FROM `mnc_movie` LIMIT 2
+  [1m[36mVideo Load (21.1ms)[0m  [1mSELECT `mnc_video`.* FROM `mnc_video` WHERE `mnc_video`.`movie` = '543a1a08264f2'[0m
+  [1m[35mVideo Load (12.5ms)[0m  SELECT `mnc_video`.* FROM `mnc_video` WHERE `mnc_video`.`movie` = '543a1a7bed99e'
+  [1m[36mMovie Load (0.9ms)[0m  [1mSELECT  `mnc_movie`.* FROM `mnc_movie` LIMIT 2[0m
+  [1m[35mMovie Load (1.5ms)[0m  SELECT  `mnc_movie`.* FROM `mnc_movie` LIMIT 2
+  [1m[36mMovie Load (1.5ms)[0m  [1mSELECT  `mnc_movie`.* FROM `mnc_movie`  ORDER BY `mnc_movie`.`code` ASC LIMIT 1[0m
+  [1m[35mMovie Load (0.6ms)[0m  SELECT  `mnc_movie`.* FROM `mnc_movie`  ORDER BY `mnc_movie`.`code` ASC LIMIT 1
+  [1m[36mVideo Load (0.5ms)[0m  [1mSELECT `mnc_video`.* FROM `mnc_video` WHERE `mnc_video`.`movie` = '543a1a08264f2'[0m
+  [1m[35mMovie Load (1.8ms)[0m  SELECT  `mnc_movie`.* FROM `mnc_movie` WHERE `mnc_movie`.`code` = '543a1a08264f2' LIMIT 1
+  [1m[36mMovie Load (1.4ms)[0m  [1mSELECT  `mnc_movie`.* FROM `mnc_movie` WHERE `mnc_movie`.`code` = '543a1a08264f2' LIMIT 1[0m
+  [1m[35mMovie Load (2.5ms)[0m  SELECT  `mnc_movie`.* FROM `mnc_movie` WHERE `mnc_movie`.`code` = '543a1a08264f2' LIMIT 1
+  [1m[36mMovie Load (0.5ms)[0m  [1mSELECT  `mnc_movie`.* FROM `mnc_movie` WHERE `mnc_movie`.`code` = '543a1a08264f2' LIMIT 1[0m
+  [1m[35mMovie Load (0.7ms)[0m  SELECT  `mnc_movie`.* FROM `mnc_movie` WHERE `mnc_movie`.`code` = '543a1a08264f2' LIMIT 1
+  [1m[36mMovie Load (1.1ms)[0m  [1mSELECT  `mnc_movie`.* FROM `mnc_movie` LIMIT 2[0m
+  [1m[35m (1.7ms)[0m  SELECT COUNT(*) FROM `mnc_video` WHERE `mnc_video`.`movie` = '543a1a08264f2'
+  [1m[36mVideo Load (0.7ms)[0m  [1mSELECT `mnc_video`.* FROM `mnc_video` WHERE `mnc_video`.`movie` = '543a1a08264f2'[0m
+  [1m[35m (0.7ms)[0m  SELECT COUNT(*) FROM `mnc_video` WHERE `mnc_video`.`movie` = '543a1a7bed99e'
+  [1m[36mVideo Load (0.3ms)[0m  [1mSELECT `mnc_video`.* FROM `mnc_video` WHERE `mnc_video`.`movie` = '543a1a7bed99e'[0m
+  [1m[36mMovie Load (1.2ms)[0m  [1mSELECT  `mnc_movie`.* FROM `mnc_movie` LIMIT 2[0m
+  [1m[35m (0.6ms)[0m  SELECT COUNT(*) FROM `mnc_video` WHERE `mnc_video`.`movie` = '543a1a08264f2'
+  [1m[36mVideo Load (0.7ms)[0m  [1mSELECT `mnc_video`.* FROM `mnc_video` WHERE `mnc_video`.`movie` = '543a1a08264f2'[0m
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM `mnc_video` WHERE `mnc_video`.`movie` = '543a1a7bed99e'
+  [1m[36mVideo Load (0.5ms)[0m  [1mSELECT `mnc_video`.* FROM `mnc_video` WHERE `mnc_video`.`movie` = '543a1a7bed99e'[0m
+  [1m[35mVideo Load (0.9ms)[0m  SELECT  `mnc_video`.* FROM `mnc_video`  ORDER BY `mnc_video`.`code` ASC LIMIT 1
+  [1m[36mMovie Load (1.4ms)[0m  [1mSELECT  `mnc_movie`.* FROM `mnc_movie` LIMIT 1[0m
+  [1m[35m (0.7ms)[0m  SELECT COUNT(*) FROM `mnc_video` WHERE `mnc_video`.`movie` = '543a1a08264f2'
+  [1m[36mVideo Load (1.0ms)[0m  [1mSELECT `mnc_video`.* FROM `mnc_video` WHERE `mnc_video`.`movie` = '543a1a08264f2'[0m
+  [1m[36mMovie Load (1.2ms)[0m  [1mSELECT  `mnc_movie`.* FROM `mnc_movie` LIMIT 1[0m
+  [1m[35m (0.6ms)[0m  SELECT COUNT(*) FROM `mnc_video` WHERE `mnc_video`.`movie` = '543a1a08264f2'
+  [1m[36mVideo Load (0.8ms)[0m  [1mSELECT `mnc_video`.* FROM `mnc_video` WHERE `mnc_video`.`movie` = '543a1a08264f2'[0m
+  [1m[36mMovie Load (1.1ms)[0m  [1mSELECT  `mnc_movie`.* FROM `mnc_movie` LIMIT 1[0m
+  [1m[35m (0.5ms)[0m  SELECT COUNT(*) FROM `mnc_video` WHERE `mnc_video`.`movie` = '543a1a08264f2'
+  [1m[36mVideo Load (0.3ms)[0m  [1mSELECT `mnc_video`.* FROM `mnc_video` WHERE `mnc_video`.`movie` = '543a1a08264f2'[0m
+  [1m[36mMovie Load (2.4ms)[0m  [1mSELECT  `mnc_movie`.* FROM `mnc_movie` LIMIT 1[0m
+  [1m[35m (0.6ms)[0m  SELECT COUNT(*) FROM `mnc_video` WHERE `mnc_video`.`movie` = '543a1a08264f2'
+  [1m[36mVideo Load (0.2ms)[0m  [1mSELECT `mnc_video`.* FROM `mnc_video` WHERE `mnc_video`.`movie` = '543a1a08264f2'[0m
+  [1m[36mMovie Load (3.4ms)[0m  [1mSELECT  `mnc_movie`.* FROM `mnc_movie` LIMIT 1[0m
+  [1m[35m (0.5ms)[0m  SELECT COUNT(*) FROM `mnc_video` WHERE `mnc_video`.`movie` = '543a1a08264f2'
+  [1m[36mVideo Load (1.1ms)[0m  [1mSELECT `mnc_video`.* FROM `mnc_video` WHERE `mnc_video`.`movie` = '543a1a08264f2'[0m
+  [1m[36mMovie Load (1.6ms)[0m  [1mSELECT  `mnc_movie`.* FROM `mnc_movie` LIMIT 1[0m
+  [1m[35m (0.7ms)[0m  SELECT COUNT(*) FROM `mnc_video` WHERE `mnc_video`.`movie` = '543a1a08264f2'
+  [1m[36mVideo Load (0.7ms)[0m  [1mSELECT `mnc_video`.* FROM `mnc_video` WHERE `mnc_video`.`movie` = '543a1a08264f2'[0m
+  [1m[36mMovie Load (2.0ms)[0m  [1mSELECT  `mnc_movie`.* FROM `mnc_movie` LIMIT 1[0m
+  [1m[35m (0.8ms)[0m  SELECT COUNT(*) FROM `mnc_video` WHERE `mnc_video`.`movie` = '543a1a08264f2'
+  [1m[36mVideo Load (1.1ms)[0m  [1mSELECT `mnc_video`.* FROM `mnc_video` WHERE `mnc_video`.`movie` = '543a1a08264f2'[0m
+  [1m[36mMovie Load (1.5ms)[0m  [1mSELECT  `mnc_movie`.* FROM `mnc_movie` LIMIT 1[0m
+  [1m[35m (0.6ms)[0m  SELECT COUNT(*) FROM `mnc_video` WHERE `mnc_video`.`movie` = '543a1a08264f2'
+  [1m[36mVideo Load (0.9ms)[0m  [1mSELECT `mnc_video`.* FROM `mnc_video` WHERE `mnc_video`.`movie` = '543a1a08264f2'[0m
+  [1m[36mMovie Load (1.7ms)[0m  [1mSELECT  `mnc_movie`.* FROM `mnc_movie` LIMIT 1[0m
+  [1m[35m (2.5ms)[0m  SELECT COUNT(*) FROM `mnc_video` WHERE `mnc_video`.`movie` = '543a1a08264f2'
+  [1m[36mVideo Load (0.6ms)[0m  [1mSELECT `mnc_video`.* FROM `mnc_video` WHERE `mnc_video`.`movie` = '543a1a08264f2'[0m
+  [1m[36mMovie Load (26.5ms)[0m  [1mSELECT  `mnc_movie`.* FROM `mnc_movie` LIMIT 5[0m
+  [1m[35m (1.6ms)[0m  SELECT COUNT(*) FROM `mnc_video` WHERE `mnc_video`.`movie` = '543a1a08264f2'
+  [1m[36mVideo Load (0.9ms)[0m  [1mSELECT `mnc_video`.* FROM `mnc_video` WHERE `mnc_video`.`movie` = '543a1a08264f2'[0m
+  [1m[35m (1.0ms)[0m  SELECT COUNT(*) FROM `mnc_video` WHERE `mnc_video`.`movie` = '543a1a7bed99e'
+  [1m[36mVideo Load (0.9ms)[0m  [1mSELECT `mnc_video`.* FROM `mnc_video` WHERE `mnc_video`.`movie` = '543a1a7bed99e'[0m
