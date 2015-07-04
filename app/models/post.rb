@@ -1,20 +1,33 @@
 require 'httparty'
 require 'json'
+require 'open-uri'
+require 'uri'
 
 class Post < ActiveRecord::Base
+  self.table_name = "wp_posts"
+
   API_URL = 'http://www.cartoon2watch.com/wp-json'
   API_POST_URL = 'http://www.cartoon2watch.com/wp-json/posts'
   BASIC_AUTH = {:username => "tamnguyen", :password => "nguyen"}
   POST_TYPE = {tvshows: "tvshows", episode: "episodios"}
+  RESOURCE_IMAGE_DOMAIN = "http://resource.cartoon2watch.com/resources/images/"
 
   def self.create_multi_posts
-    list_movie = Movie.take(5)
+  	page = 0 # [0]
+  	limit = 2 # [2]
+  	offset = page + limit
+    # list_movie = Movie.limit(limit).offset(offset)
+    list_movie = Movie.all
     list_movie.each do |movie|
       # str.strip.downcase.gsub(/\s+/," ").gsub(" ","-")
       returned_movie = Post.create_post_tvshow(movie, "post")
 
-      meta_poster_url = Post.create_post_tvshow_meta(returned_movie["ID"], "poster_url", movie["cover"])
-      meta_cover_url = Post.create_post_tvshow_meta(returned_movie["ID"], "cover_url", movie["cover"])
+      # download image
+      image_url = Post.download_image(movie["cover"], movie["title"])
+      poster_url = "#{RESOURCE_IMAGE_DOMAIN}#{image_url}"
+
+      Post.create_post_tvshow_meta(returned_movie["ID"], "poster_url", poster_url)
+      Post.create_post_tvshow_meta(returned_movie["ID"], "cover_url", poster_url)
 
       Post.create_post_tvshow_meta(returned_movie["ID"], "seasons", "1")
       Post.create_post_tvshow_meta(returned_movie["ID"], "_seasons", "field_551980b8a65b5")
@@ -29,7 +42,7 @@ class Post < ActiveRecord::Base
         Post.create_post_tvshow_meta(returned_video["ID"], "voo", "0")
         Post.create_post_tvshow_meta(returned_video["ID"], "_voo", "field_54fa4f41bca28")
         Post.create_post_tvshow_meta(returned_video["ID"], "titulo_serie", "")
-    	Post.create_post_tvshow_meta(returned_video["ID"], "url_serie", "")
+        Post.create_post_tvshow_meta(returned_video["ID"], "url_serie", "")
         Post.create_post_tvshow_meta(returned_video["ID"], "fecha_serie", "")
         Post.create_post_tvshow_meta(returned_video["ID"], "temporada_serie", "0")
         Post.create_post_tvshow_meta(returned_video["ID"], "episodio_serie", "#{index + 1}")
@@ -61,7 +74,9 @@ class Post < ActiveRecord::Base
       :excerpt_raw => m_movie[:other_title],
       :name => m_movie[:title],
       :type => m_type,
-      :status => 'publish'
+      :status => 'publish',
+      :term => m_movie.movie_category[:title].downcase.strip.gsub(/\s+/," ").gsub(" ","-"),
+      :tax => "category",
     }
     post_return = HTTParty.post(
       "#{API_POST_URL}",
@@ -117,6 +132,45 @@ class Post < ActiveRecord::Base
       :basic_auth => BASIC_AUTH
     )
     puts "result for post #{post_id} is #{result_meta}"
+  end
+
+  def self.download_image(image_url, prefix = "", path = "download/images/")
+    # get filename
+    # image_url = 'http://www.example.com/foo/bar/filename.jpg?2384973948743'
+    puts "Start downloading #{image_url}, store in #{path}"
+    begin
+      file_name = File.basename(URI.parse(image_url).path)
+      prefix = prefix.downcase.gsub(" ", "_").gsub("-","_").gsub("%", "_").gsub(":", "_")
+      prefix = prefix.gsub("&", "_").gsub("#", "_").gsub(";", "_")
+      file_name = file_name.downcase.gsub(" ", "_").gsub("-","_").gsub("%", "_").gsub(":", "_")
+      file_name = file_name.gsub("&", "_").gsub("#", "_").gsub(";", "_")
+      new_file_name = "#{prefix}_#{file_name}"
+
+      image_obj = open(image_url)
+      IO.copy_stream(image_obj, "#{path}#{new_file_name}")
+
+      return new_file_name
+      puts "Downloaded!"
+      puts " "
+    rescue Exception => e
+      return "no_image.png"
+    end
+
+  end
+
+  def self.download_image_demo
+    puts "Downloading..."
+    list_movie = Movie.take(10)
+    list_movie.each_with_index do |movie, index|
+      begin
+        puts "Getting file #{movie[:cover]}"
+        Post.download_image(movie[:cover], movie[:title])
+      rescue Exception => e
+        puts "Error! #{e.to_s}"
+      end
+
+    end
+    puts "Download complete!"
   end
 
   def self.create_post_meta_demo
