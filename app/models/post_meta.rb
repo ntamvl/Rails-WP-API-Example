@@ -2,6 +2,8 @@ class PostMeta < ActiveRecord::Base
   self.table_name = "wp_postmeta"
   RESOURCE_IMAGE_DOMAIN = "http://resource.cartoon2watch.com/resources/images/"
 
+  belongs_to :post, :foreign_key => :post_id
+
   def self.update_cover
     list_meta = PostMeta.where(meta_key: ["cover_url", "poster_url"])
     list_meta.each_with_index do |meta, index|
@@ -31,7 +33,7 @@ class PostMeta < ActiveRecord::Base
             puts "[#{count}] -----------------------------------------------------------------"
             # download image
             image_file_name = Post.download_image(movie[:cover], movie[:title], "download/image_fixed/")
-            poster_url = "#{RESOURCE_IMAGE_DOMAIN}#{image_file_name}"
+            poster_url = "#{RESOURCE_IMAGE_DOMAIN}#{image_file_name}".gsub(":", "_")
 
             puts "Start saving meta #{meta[:meta_id]}... "
             meta[:meta_value] = poster_url

@@ -5,6 +5,7 @@ require 'uri'
 
 class Post < ActiveRecord::Base
   self.table_name = "wp_posts"
+  has_many :post_metas, :foreign_key => :post_id
 
   API_URL = 'http://www.cartoon2watch.com/wp-json'
   API_POST_URL = 'http://www.cartoon2watch.com/wp-json/posts'
@@ -284,6 +285,11 @@ class Post < ActiveRecord::Base
     #    puts "result is #{result_meta}"
 
     #    puts "youtube_url_escape is #{youtube_url_escape}"
+  end
+
+  def self.count_ep_die
+    # list_ep  = Post.where(:post_type => "episodios")
+    list_ep = Post.joins(:post_metas).where("wp_postmeta.meta_key" => "tvplayer_0_embed_tvplayer").where(wp_postmeta: { meta_value: "" })
   end
 
 end
