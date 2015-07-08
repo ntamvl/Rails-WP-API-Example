@@ -288,8 +288,17 @@ class Post < ActiveRecord::Base
   end
 
   def self.count_ep_die
+    ep_domain = "http://www.cartoon2watch.com/episode/"
     # list_ep  = Post.where(:post_type => "episodios")
+    # count = 0
     list_ep = Post.joins(:post_metas).where("wp_postmeta.meta_key" => "tvplayer_0_embed_tvplayer").where(wp_postmeta: { meta_value: "" })
+    list_ep.each_with_index do |post, index|
+      # count = count + 1
+      File.open("list_ep_no_player.txt",'a+') do |file_ep|
+        file_ep.puts "#{index} #{ep_domain}#{post[:post_name]}"
+        puts "#{index} #{ep_domain}#{post[:post_name]}"
+      end
+    end
   end
 
 end
