@@ -26,6 +26,25 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'httparty'
 gem 'awesome_print'
 
+gem 'nokogiri'
+
+gem 'rubocop', require: false
+
+gem 'cobweb'
+
+gem 'wombat'
+
+gem 'mechanize'
+
+gem 'capybara'
+
+# gem 'phantomjs'
+
+# gem 'poltergeist'
+# gem 'phantomjs', :require => 'phantomjs/poltergeist'
+
+gem 'phantomjs.rb'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

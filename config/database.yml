@@ -13,13 +13,21 @@ default: &default
   adapter: mysql2
   encoding: utf8
   pool: 5
+  # username:  cartoon2_watch
+  # password: cartoon2000!!!@
+  # host: 108.179.227.82
   username: root
   password: nguyen
-  socket: /var/run/mysqld/mysqld.sock
+  host: localhost
+  port: 3306
+
+  # protocol: [protocol]
+  # socket: /var/run/mysqld/mysqld.sock
 
 development:
   <<: *default
-  database: rails_wp_api_development
+  database: cartoon2watch_production2 # cartoon2watch_production2
+  # database: rails_wp_api_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".

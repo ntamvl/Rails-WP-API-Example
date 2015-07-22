@@ -55,4 +55,20 @@ class PostMeta < ActiveRecord::Base
     end
   end
 
+  def self.update_meta_key
+    content = "<p style='background: white;'>{title}<a href='http://www.cartoon2watch.com'><img src='http://resource.cartoon2watch.com/resources/common/comming_soon.png'></a></p>"
+    list_meta = PostMeta.where("meta_value LIKE ?", "%cartoongood.com%")
+    list_meta.each_with_index do |meta, index|
+      list_post = Post.where(id: meta[:post_id])
+      if list_post.count > 0
+        post = list_post.first
+        new_content = "#{content.gsub("{title}", post[:post_title])}"
+        puts "#{index} - #{new_content}"
+        meta[:meta_value] = new_content
+        meta.save
+        puts "Updated completed...."
+      end
+    end
+  end
+
 end
