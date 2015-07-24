@@ -3,3 +3,4 @@ download/
 log/
 log/*
 log/development.log
+config/database.yml

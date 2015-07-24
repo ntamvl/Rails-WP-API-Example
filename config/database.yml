@@ -26,7 +26,9 @@ default: &default
 
 development:
   <<: *default
-  database: cartoon2watch_production2 # cartoon2watch_production2
+  database: cartoon2watch_production2
+
+  # database: cartoon2_watch_production_3_1
   # database: rails_wp_api_development
 
 # Warning: The database defined as "test" will be erased and
