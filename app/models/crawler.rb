@@ -104,6 +104,7 @@ class Crawler
     puts 'Crawling list episode...'
     crawl_url = 'http://kissanime.com/Anime/hack-Roots-Dub'
     html_content = Phantomjs.run('kissanime_crawler.js', crawl_url)
+    episode_links = []
     # puts html_content
     page = Nokogiri::HTML(html_content)
     table_list = page.css('div.barContent.episodeList div table.listing')
@@ -146,6 +147,7 @@ class Crawler
           if stream.length > 10
             puts "-----------------"
             puts "#{index} - #{stream.split(",").first}"
+            direct_links << stream.split(",").first
           end
         end
         # puts rows
